@@ -17,6 +17,7 @@ class Boton {
       _ESPERANDO_PULSO_LARGO,
       _DETECTANDO_PULSACIONES
     };
+    const uint8_t _SIN_PULSAR = 0;
     const uint8_t _PULSO_1 = 1;
     const uint8_t _PULSO_LARGO = 8;
 
@@ -25,6 +26,8 @@ class Boton {
     uint32_t _intervaloPulsaciones;
     uint32_t _tiempoPresionado;
     uint32_t _tiempoUltimaPulsacion;
+    uint32_t _tiempoDebounce;
+    uint32_t _intervaloDebounce = 50;
     bool _estadoAnteriorBoton;
     uint8_t _accionBoton;
     uint8_t _estadoActual;
