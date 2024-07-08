@@ -6,8 +6,8 @@ Boton::Boton(uint8_t pin, uint32_t tiempoPulsoLargo) {
   _intervaloPulsaciones = 0; // Valor por defecto, no usado si no se llama a variasPulsaciones
   _tiempoPresionado = 0;
   _tiempoUltimaPulsacion = 0;
-  _estadoAnteriorBoton = HIGH;
-  _accionBoton = NULL;
+  _estadoAnteriorBoton = LOW;
+  _accionBoton = _SIN_PULSAR;
   _estadoActual = _ESPERANDO;
   _contadorPulsaciones = 0;
   _maxPulsaciones = 1;
@@ -25,8 +25,13 @@ void Boton::variasPulsaciones(uint32_t intervaloPulsaciones, uint8_t maxPulsacio
 }
 
 void Boton::actualizar() {
-  bool _estadoBoton = digitalRead(_botonPin);
   uint32_t _tiempoActual = millis();
+  bool _estadoBoton;
+  
+  if (_tiempoActual - _tiempoDebounce >= _intervaloDebounce) {
+    _tiempoDebounce = _tiempoActual;
+    _estadoBoton = digitalRead(_botonPin);
+  }
 
   switch (_estadoActual) {
     case _ESPERANDO:
@@ -43,7 +48,7 @@ void Boton::actualizar() {
             _contadorPulsaciones++;
             _tiempoUltimaPulsacion = _tiempoActual;
             if (_contadorPulsaciones > _maxPulsaciones) {
-              _accionBoton = NULL; // No asignar acción si se supera el máximo de pulsaciones
+              _accionBoton = _SIN_PULSAR; // No asignar acción si se supera el máximo de pulsaciones
               _contadorPulsaciones = 0;
               _estadoActual = _ESPERANDO;
             } else {
@@ -52,6 +57,7 @@ void Boton::actualizar() {
           } else {
             _accionBoton = _PULSO_1;
             _estadoActual = _ESPERANDO;
+            _tiempoPresionado = _tiempoActual;
           }
         } else {  // Es un pulso largo
           _accionBoton = _PULSO_LARGO;
@@ -60,6 +66,7 @@ void Boton::actualizar() {
       } else if (_estadoBoton == LOW && (_tiempoActual - _tiempoPresionado >= _tiempoPulsoLargo)) {  // Es un pulso largo
         _accionBoton = _PULSO_LARGO;
         _estadoActual = _ESPERANDO;
+        _tiempoPresionado = _tiempoActual;
       }
       break;
 
@@ -71,7 +78,7 @@ void Boton::actualizar() {
         if (_contadorPulsaciones <= _maxPulsaciones) {
           _accionBoton = _contadorPulsaciones;
         } else {
-          _accionBoton = NULL; // No asignar acción si se supera el máximo de pulsaciones
+          _accionBoton = _SIN_PULSAR; // No asignar acción si se supera el máximo de pulsaciones
         }
         _contadorPulsaciones = 0;
         _estadoActual = _ESPERANDO;
@@ -83,6 +90,6 @@ void Boton::actualizar() {
 
 uint8_t Boton::leerEstado() {
   uint8_t _accion = _accionBoton;
-  _accionBoton = NULL;  // Resetea la acción después de ser leída
+  _accionBoton = _SIN_PULSAR;  // Resetea la acción después de ser leída
   return _accion;
 }
