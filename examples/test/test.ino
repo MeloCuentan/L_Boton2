@@ -14,7 +14,7 @@ void setup() {
   Serial.println("INICIO DEL SISTEMA");
   
   // Si no se llama al siguiente método, solo funcionara como pulso corto y pulso largo
-  miBoton.variasPulsaciones(intervaloPulsaciones, 2); // Intervalo entre pulsaciones, número máximo de puslaciones a detectar (de 1 a 7)
+  // miBoton.variasPulsaciones(intervaloPulsaciones, numeroPulsaciones); // Intervalo entre pulsaciones, número máximo de puslaciones a detectar (de 1 a 7)
 }
 
 void loop() {
