@@ -26,7 +26,7 @@ void Boton::variasPulsaciones(uint32_t intervaloPulsaciones, uint8_t maxPulsacio
 
 void Boton::actualizar() {
   uint32_t _tiempoActual = millis();
-  bool _estadoBoton;
+  static bool _estadoBoton = HIGH;
   
   if (_tiempoActual - _tiempoDebounce >= _intervaloDebounce) {
     _tiempoDebounce = _tiempoActual;
