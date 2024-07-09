@@ -21,5 +21,12 @@ void loop() {
   miBoton.actualizar(); // Actualizamos el estado del botón
   
   uint8_t estadoBoton = miBoton.leerEstado(); // Leemos el estado del botón
+
+  /* 
+  miBoton.leerEstado();
+  devuelve el número de veces que se ha pulsado
+  Si no se ha pulsado devuelve 0
+  Si es un pulso largo devuelve 8
+  */
   if (estadoBoton != 0) Serial.println(estadoBoton); // si se ha pulsado, muestra el número de pulsaciones
 }
