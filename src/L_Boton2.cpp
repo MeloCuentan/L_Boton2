@@ -47,13 +47,7 @@ void Boton::actualizar() {
           if (_variasPulsacionesActivado) {
             _contadorPulsaciones++;
             _tiempoUltimaPulsacion = _tiempoActual;
-            if (_contadorPulsaciones > _maxPulsaciones) {
-              _accionBoton = _SIN_PULSAR; // No asignar acción si se supera el máximo de pulsaciones
-              _contadorPulsaciones = 0;
-              _estadoActual = _ESPERANDO;
-            } else {
-              _estadoActual = _DETECTANDO_PULSACIONES;
-            }
+            _estadoActual = _DETECTANDO_PULSACIONES;
           } else {
             _accionBoton = _PULSO_1;
             _estadoActual = _ESPERANDO;
