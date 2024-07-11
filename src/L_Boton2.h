@@ -20,6 +20,7 @@ class Boton {
     const uint8_t _SIN_PULSAR = 0;
     const uint8_t _PULSO_1 = 1;
     const uint8_t _PULSO_LARGO = 8;
+    const uint8_t _limitePulsos = 7;
 
     bool _estadoAnteriorBoton;
     bool _variasPulsacionesActivado;
