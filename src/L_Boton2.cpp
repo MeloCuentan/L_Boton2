@@ -18,7 +18,7 @@ Boton::Boton(uint8_t pin, uint32_t tiempoPulsoLargo) {
 
 void Boton::variasPulsaciones(uint32_t intervaloPulsaciones, uint8_t maxPulsaciones) {
   if (maxPulsaciones == 0) return;
-  if (maxPulsaciones > 7) maxPulsaciones = 7;
+  if (maxPulsaciones > _limitePulsos) maxPulsaciones = _limitePulsos;
   _intervaloPulsaciones = intervaloPulsaciones;
   _maxPulsaciones = maxPulsaciones;
   _variasPulsacionesActivado = true;
