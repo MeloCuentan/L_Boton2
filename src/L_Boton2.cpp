@@ -26,12 +26,12 @@ void Boton::variasPulsaciones(uint32_t intervaloPulsaciones, uint8_t maxPulsacio
 
 void Boton::actualizar() {
   uint32_t _tiempoActual = millis();
+  if (_tiempoActual - _tiempoDebounce < _intervaloDebounce) return;
+
   static bool _estadoBoton = HIGH;
-  
-  if (_tiempoActual - _tiempoDebounce >= _intervaloDebounce) {
-    _tiempoDebounce = _tiempoActual;
-    _estadoBoton = digitalRead(_botonPin);
-  }
+
+  _tiempoDebounce = _tiempoActual;
+  _estadoBoton = digitalRead(_botonPin);
 
   switch (_estadoActual) {
     case _ESPERANDO:
