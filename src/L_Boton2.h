@@ -5,7 +5,7 @@
 
 class Boton {
   public:
-    Boton(uint8_t pin, uint32_t tiempoPulsoLargo);
+    Boton(uint8_t pin, uint32_t tiempoPulsoLargo = 2000);
     void variasPulsaciones(uint32_t intervaloPulsaciones, uint8_t maxPulsaciones);
     void actualizar();
     uint8_t leerEstado();
