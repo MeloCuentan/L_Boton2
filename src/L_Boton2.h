@@ -3,6 +3,10 @@
 
 #include <Arduino.h>
 
+const uint8_t NO_PULSADO = 0;
+const uint8_t PULSO_CORTO = 1;
+const uint8_t PULSO_LARGO = 8;
+
 class Boton {
   public:
     Boton(uint8_t pin, uint32_t tiempoPulsoLargo = 2000);
